@@ -30,8 +30,8 @@ main {
   font-size: 50px;
   height: 25%;
 }
-#navigation_bar {
-  height: 15%;
+#bar_insert {
+  height: 10%;
   width: 75%;
   display: flex;
   flex-direction: row;
@@ -39,8 +39,11 @@ main {
   border: 2px solid;
   border-radius: 10px;
 }
+#input_bar {
+  height: 75%;
+}
 
-#inputButton {
+.inputButton {
   width: 20%;
   text-align: center;
   background: none;
