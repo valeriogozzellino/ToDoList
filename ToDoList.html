@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta />
-    <title>valerio gozzellino</title>
+    <title>ToDoList</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -12,15 +12,53 @@
           <h3>To Do List</h3>
         </div>
         <div id="bar_insert">
-          <form id="input_bar">
-            <label></label>
-            <input id="inputText" type="text" placeholder="Name..." />
-            <label></label>
-            <button class="inputButton" type="button" value="Add Item"></button>
-          </form>
+          <input id="inputText" type="text" placeholder="Name..." />
+          <button
+            class="inputButton"
+            id="button_add"
+            type="button"
+            value="Add Item"
+          >
+            Add Item
+          </button>
         </div>
-        <div class="inputButton"><a>Clear</a></div>
+        <div id="bottom_section">
+          <button type="button" class="inputButton" , id="button_clear">
+            Clear Items
+          </button>
+        </div>
       </div>
     </main>
+
+    <script>
+      class TODOLIST {
+        constructor() {
+          this.tasks = [];
+          console.log("ToDoList", this.tasks);
+        }
+        aggiungiTask() {}
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        const newTaskBtn = document.getElementById("button_add");
+        const clearBtn = document.getElementById("button_clear");
+        const input = document.getElementById("inputText");
+        const todolist = new TODOLIST();
+        newTaskBtn.addEventListener("click", () => {
+          console.log("nuovo item");
+          todolist.aggiungiTask(input.value);
+        });
+        clearBtn.addEventListener("click", () => {
+          console.log("clean item");
+        });
+        input.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            todolist.aggiungiTask(input.value);
+            consol.log(input.value);
+
+            input.value = "";
+          }
+        });
+      });
+    </script>
   </body>
 </html>
