@@ -73,3 +73,11 @@ h3 {
 #bottom_section {
   height: 15%;
 }
+#insertlist {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid;
+}
+#element_of_the_list {
+  border: 2px solid;
+}

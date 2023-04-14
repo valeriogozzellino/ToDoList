@@ -22,6 +22,10 @@
             Add Item
           </button>
         </div>
+        <div id="insertlist">
+          <div id="element_of_the_list"></div>
+        </div>
+        <!--modificare lo stile di questi blocchi che vengono creati con un display flex -->
         <div id="bottom_section">
           <button type="button" class="inputButton" , id="button_clear">
             Clear Items
@@ -32,29 +36,37 @@
 
     <script>
       class TODOLIST {
+        //creo una classe
         constructor() {
           this.tasks = [];
-          console.log("ToDoList", this.tasks);
+          console.log("tasks", this.tasks);
         }
-        aggiungiTask() {}
+        aggiungiTask(task) {
+          //creazione di un array che verrà inserito a schermo
+          this.tasks.push(task);
+          console.log("tasks", this.tasks);
+          const todo = document.getElementById("insertlist");
+          const el_list = document.createElement("element_of_the_list");
+          todo.appendChild(el_list);
+        }
       }
       document.addEventListener("DOMContentLoaded", () => {
+        //attendo che si carichi il dom
         const newTaskBtn = document.getElementById("button_add");
         const clearBtn = document.getElementById("button_clear");
         const input = document.getElementById("inputText");
         const todolist = new TODOLIST();
         newTaskBtn.addEventListener("click", () => {
-          console.log("nuovo item");
+          //gestione dei vari eventi sui click
           todolist.aggiungiTask(input.value);
         });
         clearBtn.addEventListener("click", () => {
           console.log("clean item");
         });
         input.addEventListener("keypress", (e) => {
+          //gestione dell'evento con invio
           if (e.key === "Enter") {
             todolist.aggiungiTask(input.value);
-            consol.log(input.value);
-
             input.value = "";
           }
         });
