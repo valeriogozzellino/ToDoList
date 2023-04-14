@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <main>
+    <main id="main">
       <div class="bodygroup">
         <div id="titleapp">
           <h3>To Do List</h3>
@@ -22,8 +22,10 @@
             Add Item
           </button>
         </div>
+      </div>
+      <div class="second_part">
         <div id="insertlist">
-          <div id="elementlist">
+          <div class="elementlist">
             <div id="textlist"></div>
             <div id="icons"></div>
           </div>
@@ -38,66 +40,44 @@
     </main>
 
     <script>
-      class TODOLIST {
-        //creo una classe
-        constructor() {
-          this.tasks = []; //lista di stringhe
-          console.log("taks", this.tasks);
-        }
-        addTask(task) {
-          //mi arriav il valode da button o enter
-          //creazione di un array che verrà inserito a schermo
-          this.tasks.push(task);
-          console.log("tasks", this.tasks);
-          this.generaNuovoTask(task);
-          //per mandarlo a schermo:
-        }
-        generaNuovoTask(task) {
-          const todo = document.getElementById("insertlist");
-          const el_list = document.createElement("elementlist");
-          //???????const el_remove = document.getElementById("icons");
-          el_list.appendChild(document.createTextNode(task));
-          todo.appendChild(el_list);
-          el_list.addEventListener("click", (e) => {
-            this.endTask(task);
-            e.srcElement.remove();
-          });
-        }
-        endTask(task) {
-          //in realtà questa funzione dovrebbe sbarrare il contenuto di "textlist"
-          const index = this.tasks.indexOf(task);
-          this.tasks.splice(index, 1);
-          console.log(this.tasks);
-          //   const barrtext = document.getElementById("textlist");
-          //   markedText.changeText();
-          // }
-          // removeTask(task){
-
-          // }
-          // cleanAll(tansk)
-        }
-      }
-      document.addEventListener("DOMContentLoaded", () => {
-        //attendo che si carichi il dom
-        const newTaskBtn = document.getElementById("button_add");
-        const clearBtn = document.getElementById("button_clear");
+      const submit = document.getElementById("button_add");
+      const enter_press = document.getElementById("inputText");
+      const TaskHandlerBottom = (e) => {
         const input = document.getElementById("inputText");
-        const todolist = new TODOLIST();
-        newTaskBtn.addEventListener("click", () => {
-          todolist.addTask(input.value);
-          input.value = "";
-        });
-        clearBtn.addEventListener("click", () => {
-          console.log("clean item");
-        });
-        input.addEventListener("keypress", (e) => {
-          //gestione dell'evento con invio
-          if (e.key === "Enter") {
-            todolist.addTask(input.value);
-            input.value = "";
-          }
-        });
-      });
+        //input.addEventListener("keypress", (e) => {});
+        const todo = document.getElementById("insertlist");
+        const el_list = document.createElement("div");
+
+        el_list.classList.add("elementlist");
+        el_list.appendChild(document.createElement("div")); //creo elementi nel nodo
+        el_list.appendChild(document.createElement("div"));
+        el_list.children[0].classList.add("textlist");
+        el_list.children[0].textContent = input.value;
+        el_list.children[1].classList.add("icons");
+        el_list.children[1].appendChild(document.createElement("button"));
+        el_list.children[1].children[0].textContent = "remove";
+
+        console.log(el_list);
+
+        todo.prepend(el_list);
+        input.value = "";
+        //gestione dell'evento con invio
+      };
+      // enter_press.addEventListener("Keypress", (e) => {
+      //   if (e.keyup === "Enter") {
+      //     TaskHandlerBottom(e);
+      //     console.log("in press enter");
+      //   }
+      // });
+      submit.addEventListener("click", TaskHandlerBottom);
+      console.log("i'm in");
+      const remove = document.getElementById("button_clear");
+
+      const TaskRemoveButton = () => {
+        const removeAll = document.getElementsByClassName("insertlist");
+        remove.removeAttribute("class");
+      };
+      remove.addEventListener("click", TaskRemoveButton);
     </script>
   </body>
 </html>
