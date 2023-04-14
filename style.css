@@ -74,10 +74,15 @@ h3 {
   height: 15%;
 }
 #insertlist {
+  width: 75%;
+  /*height: 50px;*/
+  display: flex;
+  flex-direction: column;
+}
+#elementlist {
   display: flex;
   flex-direction: row;
-  border: 2px solid;
-}
-#element_of_the_list {
-  border: 2px solid;
+  justify-content: space-between;
+  height: 50px;
+  font-size: 40px;
 }

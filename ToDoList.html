@@ -23,7 +23,10 @@
           </button>
         </div>
         <div id="insertlist">
-          <div id="element_of_the_list"></div>
+          <div id="elementlist">
+            <div id="textlist"></div>
+            <div id="icons"></div>
+          </div>
         </div>
         <!--modificare lo stile di questi blocchi che vengono creati con un display flex -->
         <div id="bottom_section">
@@ -38,16 +41,40 @@
       class TODOLIST {
         //creo una classe
         constructor() {
-          this.tasks = [];
-          console.log("tasks", this.tasks);
+          this.tasks = []; //lista di stringhe
+          console.log("taks", this.tasks);
         }
-        aggiungiTask(task) {
+        addTask(task) {
+          //mi arriav il valode da button o enter
           //creazione di un array che verrà inserito a schermo
           this.tasks.push(task);
           console.log("tasks", this.tasks);
+          this.generaNuovoTask(task);
+          //per mandarlo a schermo:
+        }
+        generaNuovoTask(task) {
           const todo = document.getElementById("insertlist");
-          const el_list = document.createElement("element_of_the_list");
+          const el_list = document.createElement("elementlist");
+          //???????const el_remove = document.getElementById("icons");
+          el_list.appendChild(document.createTextNode(task));
           todo.appendChild(el_list);
+          el_list.addEventListener("click", (e) => {
+            this.endTask(task);
+            e.srcElement.remove();
+          });
+        }
+        endTask(task) {
+          //in realtà questa funzione dovrebbe sbarrare il contenuto di "textlist"
+          const index = this.tasks.indexOf(task);
+          this.tasks.splice(index, 1);
+          console.log(this.tasks);
+          //   const barrtext = document.getElementById("textlist");
+          //   markedText.changeText();
+          // }
+          // removeTask(task){
+
+          // }
+          // cleanAll(tansk)
         }
       }
       document.addEventListener("DOMContentLoaded", () => {
@@ -57,8 +84,8 @@
         const input = document.getElementById("inputText");
         const todolist = new TODOLIST();
         newTaskBtn.addEventListener("click", () => {
-          //gestione dei vari eventi sui click
-          todolist.aggiungiTask(input.value);
+          todolist.addTask(input.value);
+          input.value = "";
         });
         clearBtn.addEventListener("click", () => {
           console.log("clean item");
@@ -66,7 +93,7 @@
         input.addEventListener("keypress", (e) => {
           //gestione dell'evento con invio
           if (e.key === "Enter") {
-            todolist.aggiungiTask(input.value);
+            todolist.addTask(input.value);
             input.value = "";
           }
         });
