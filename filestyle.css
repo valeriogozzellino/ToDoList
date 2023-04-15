@@ -18,11 +18,8 @@ main {
   padding: 0;
   margin-right: 0;
 }
-#button_add {
-  color: #329135;
-}
 button:hover {
-  background-color: #99ed9c; /* Green */
+  background-color: #4caf50; /* Green */
   color: white;
 }
 .bodygroup {
@@ -45,7 +42,7 @@ button:hover {
   justify-content: space-between;
   border: 2px solid;
   border-radius: 10px;
-  color: #329135;
+  color: greenyellow;
 }
 #input_bar {
   height: 75%;
@@ -67,7 +64,7 @@ button:hover {
   text-align: center;
   background: none;
   padding: 0%;
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 25px;
   transition: 0.7;
 }
@@ -83,8 +80,9 @@ h3 {
 #button_clear {
   width: 200px;
   height: 100px;
-  border-radius: 10px;
-  color: #329135;
+  border-radius: 25px;
+  color: black;
+  text-decoration: black;
 }
 #inputText {
   width: 100%;
@@ -119,10 +117,10 @@ h3 {
 #sbarrText {
   text-decoration: line-through;
 }
-.icons {
-  border-radius: 25px;
-  color: #329135;
-  border-color: #329135;
+#icons {
+  display: flex;
+  border-radius: 25px solid;
+  color: crimson;
 }
 #ToDoList {
   margin: 0;

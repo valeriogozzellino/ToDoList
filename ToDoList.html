@@ -4,6 +4,10 @@
     <meta />
     <title>ToDoList</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <body>
     <main id="main">
@@ -14,6 +18,7 @@
         <div id="bar_insert">
           <input id="inputText" type="text" placeholder="Name..." />
           <button
+            onclick="appendFunction()"
             class="inputButton"
             id="button_add"
             type="button"
@@ -23,16 +28,17 @@
           </button>
         </div>
       </div>
-      <div class="second_part">
-        <div id="insertlist">
-          <div class="elementlist">
-            <div id="textlist"></div>
-            <div id="icons"></div>
-          </div>
-        </div>
+      <div class="bottom_section">
+        <ul id="ToDoList"></ul>
+
         <!--modificare lo stile di questi blocchi che vengono creati con un display flex -->
-        <div id="bottom_section">
-          <button type="button" class="inputButton" , id="button_clear">
+        <div id="second_buttom">
+          <button
+            onclick="removeFuction()"
+            class="inputButton"
+            id="button_clear"
+            type="button"
+          >
             Clear Items
           </button>
         </div>
@@ -40,51 +46,50 @@
     </main>
 
     <script>
-      const submit = document.getElementById("button_add");
-      //const enter_press = document.getElementById("inputText");
-      const TaskHandlerBottom = () => {
+      function appendFunction() {
         const input = document.getElementById("inputText");
-        //input.addEventListener("keypress", (e) => {});
-        // if (input.value === "") {
-        //   alert("insert something to do");
-        // }
         if (input.value == "") {
           alert("insert a valid value");
         } else {
-          const todo = document.getElementById("insertlist");
-          const el_list = document.createElement("div");
+          const node = document.createElement("li"); //elemento da aggiungere alla lista
+          const container_list = document.createElement("div"); //container di text e bottoni da appendere a node
+          //aggiungo la classe di stile a container con display flex
+          container_list.classList.add("elementlist");
+          container_list.appendChild(document.createElement("div")); //creo elementi nel nodo
+          container_list.appendChild(document.createElement("div"));
+          container_list.children[0].classList.add("textlist");
+          //inserisco i bottoni:
+          container_list.children[0].textContent = input.value;
+          container_list.children[1].classList.add("icons");
+          container_list.children[1].appendChild(
+            document.createElement("button")
+          );
+          container_list.children[1].children[0].textContent = "done";
+          container_list.children[1].children[0].classList.add("icons");
+          container_list.children[1].appendChild(
+            document.createElement("button")
+          );
+          container_list.children[1].children[1].textContent = "edit";
+          container_list.children[1].children[1].classList.add("icons");
+          container_list.children[1].appendChild(
+            document.createElement("button")
+          );
+          container_list.children[1].children[2].textContent = "delete";
+          container_list.children[1].children[2].classList.add("icons");
 
-          el_list.classList.add("elementlist");
-          el_list.appendChild(document.createElement("div")); //creo elementi nel nodo
-          el_list.appendChild(document.createElement("div"));
-          el_list.children[0].classList.add("textlist");
-          el_list.children[0].textContent = input.value;
-          el_list.children[1].classList.add("icons");
-          el_list.children[1].appendChild(document.createElement("button"));
-          el_list.children[1].children[0].textContent = "remove";
-
-          console.log(el_list);
-
-          todo.prepend(el_list);
+          //appendo all'elemento della lista
+          node.appendChild(container_list);
+          document.getElementById("ToDoList").prepend(node);
           input.value = "";
         }
         //gestione dell'evento con invio
-      };
-      // enter_press.addEventListener("Keypress", (e) => {
-      //   if (e.keyup === "Enter") {
-      //     TaskHandlerBottom(e);
-      //     console.log("in press enter");
-      //   }
-      // });
-      submit.addEventListener("click", TaskHandlerBottom);
-      const remove = document.getElementById("button_clear");
-      console.log("i'm in");
-
-      const TaskRemoveButton = () => {
-        const removeAll = document.getElementById("elementlist");
-        removeAll.removeChild("id");
-      };
-      remove.addEventListener("click", TaskRemoveButton);
+      }
+      function removeFuction() {
+        const list = document.getElementById("ToDoList");
+        while (list.hasChildNodes()) {
+          list.removeChild(list.firstChild);
+        }
+      }
     </script>
   </body>
 </html>
