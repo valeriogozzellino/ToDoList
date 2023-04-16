@@ -4,10 +4,6 @@
     <meta />
     <title>ToDoList</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
   </head>
   <body>
     <main id="main">
@@ -34,7 +30,7 @@
         <!--modificare lo stile di questi blocchi che vengono creati con un display flex -->
         <div id="second_buttom">
           <button
-            onclick="removeFuction()"
+            onclick="removeAllFuction()"
             class="inputButton"
             id="button_clear"
             type="button"
@@ -46,8 +42,8 @@
     </main>
 
     <script>
+      const input = document.getElementById("inputText");
       function appendFunction() {
-        const input = document.getElementById("inputText");
         if (input.value == "") {
           alert("insert a valid value");
         } else {
@@ -60,31 +56,69 @@
           container_list.children[0].classList.add("textlist");
           //inserisco i bottoni:
           container_list.children[0].textContent = input.value;
-          container_list.children[1].classList.add("icons");
+          //btn0
           container_list.children[1].appendChild(
             document.createElement("button")
           );
           container_list.children[1].children[0].textContent = "done";
           container_list.children[1].children[0].classList.add("icons");
+          container_list.children[1].children[0].classList.add("btn_done");
+          //btn1
           container_list.children[1].appendChild(
             document.createElement("button")
           );
           container_list.children[1].children[1].textContent = "edit";
           container_list.children[1].children[1].classList.add("icons");
+          container_list.children[1].children[1].classList.add("btn_edit");
+          //btn2
           container_list.children[1].appendChild(
             document.createElement("button")
           );
           container_list.children[1].children[2].textContent = "delete";
           container_list.children[1].children[2].classList.add("icons");
+          container_list.children[1].children[2].classList.add("btn_delete");
 
           //appendo all'elemento della lista
           node.appendChild(container_list);
           document.getElementById("ToDoList").prepend(node);
           input.value = "";
+          //funzione di done
+          function doneEventFunction() {
+            const lista = document.getElementById("ToDoList");
+            container_list.children[0].classList.add("sbarrText");
+          }
+          container_list.children[1].children[0].addEventListener(
+            "click",
+            doneEventFunction
+          );
+
+          container_list.children[1].children[2].addEventListener(
+            "click",
+            (e) => {
+              console.log("textx", container_list.children[0].innerText);
+              container_list.remove();
+            }
+          );
+
+          //funzione edit
+          function editEventFunction() {
+            input.value = container_list.children[0].innerText;
+            container_list.remove();
+          }
+          container_list.children[1].children[1].addEventListener(
+            "click",
+            editEventFunction
+          );
         }
-        //gestione dell'evento con invio
       }
-      function removeFuction() {
+      //gestione dell'evento con invio
+      input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          appendFunction();
+        }
+      });
+      //function rimozione di tutti gli elementi
+      function removeAllFuction() {
         const list = document.getElementById("ToDoList");
         while (list.hasChildNodes()) {
           list.removeChild(list.firstChild);
