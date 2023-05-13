@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta />
+    <title>ToDoList</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="main">
+      <div class="bodygroup">
+        <div id="titleapp">
+          <h3>To Do List</h3>
+        </div>
+        <div id="bar_insert">
+          <input id="inputText" type="text" placeholder="Name..." />
+          <button
+            onclick="appendFunction()"
+            class="inputButton"
+            id="button_add"
+            type="button"
+            value="Add Item"
+          >
+            Add Item
+          </button>
+        </div>
+      </div>
+      <div class="bottom_section">
+        <ul id="ToDoList"></ul>
+
+        <!--modificare lo stile di questi blocchi che vengono creati con un display flex -->
+        <div id="second_buttom">
+          <button
+            onclick="removeAllFuction()"
+            class="inputButton"
+            id="button_clear"
+            type="button"
+          >
+            Clear Items
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const input = document.getElementById("inputText");
+      function appendFunction() {
+        if (input.value == "") {
+          alert("insert a valid value");
+        } else {
+          const node = document.createElement("li"); //elemento da aggiungere alla lista
+          const container_list = document.createElement("div"); //container di text e bottoni da appendere a node
+          //aggiungo la classe di stile a container con display flex
+          container_list.classList.add("elementlist");
+          container_list.appendChild(document.createElement("div")); //creo elementi nel nodo
+          container_list.appendChild(document.createElement("div"));
+          container_list.children[0].classList.add("textlist");
+          //inserisco i bottoni:
+          container_list.children[0].textContent = input.value;
+          //btn0
+          container_list.children[1].appendChild(
+            document.createElement("button")
+          );
+          container_list.children[1].children[0].textContent = "done";
+          container_list.children[1].children[0].classList.add("icons");
+          container_list.children[1].children[0].classList.add("btn_done");
+          //btn1
+          container_list.children[1].appendChild(
+            document.createElement("button")
+          );
+          container_list.children[1].children[1].textContent = "edit";
+          container_list.children[1].children[1].classList.add("icons");
+          container_list.children[1].children[1].classList.add("btn_edit");
+          //btn2
+          container_list.children[1].appendChild(
+            document.createElement("button")
+          );
+          container_list.children[1].children[2].textContent = "delete";
+          container_list.children[1].children[2].classList.add("icons");
+          container_list.children[1].children[2].classList.add("btn_delete");
+
+          //appendo all'elemento della lista
+          node.appendChild(container_list);
+          document.getElementById("ToDoList").prepend(node);
+          input.value = "";
+          //funzione di done
+          function doneEventFunction() {
+            const lista = document.getElementById("ToDoList");
+            container_list.children[0].classList.add("sbarrText");
+          }
+          container_list.children[1].children[0].addEventListener(
+            "click",
+            doneEventFunction
+          );
+
+          container_list.children[1].children[2].addEventListener(
+            "click",
+            (e) => {
+              console.log("textx", container_list.children[0].innerText);
+              container_list.remove();
+            }
+          );
+
+          //funzione edit
+          function editEventFunction() {
+            input.value = container_list.children[0].innerText;
+            container_list.remove();
+          }
+          container_list.children[1].children[1].addEventListener(
+            "click",
+            editEventFunction
+          );
+        }
+      }
+      //gestione dell'evento con invio
+      input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          appendFunction();
+        }
+      });
+      //function rimozione di tutti gli elementi
+      function removeAllFuction() {
+        const list = document.getElementById("ToDoList");
+        while (list.hasChildNodes()) {
+          list.removeChild(list.firstChild);
+        }
+      }
+    </script>
+  </body>
+</html>
